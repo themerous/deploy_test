@@ -86,5 +86,12 @@ task installReact(type: Exec) {
     } else {
         commandLine "npm", "audit", "fix"
         commandLine "npm", "install"
+        doLast {
+            // Ensure react-scripts is executable
+            exec {
+                workingDir "$reactAppDir"
+                commandLine 'chmod', '+x', 'node_modules/.bin/react-scripts'
+            }
+        }
     }
 }
